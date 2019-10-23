@@ -13,6 +13,7 @@
 - 使用代码生成器根据表名生成对应的Model、Mapper、MapperXML、Service、ServiceImpl、Controller等基础代码
 
 ## 项目目录说明
+- 源码目录：sql : mysql数据库脚本;
 - 源码目录：src\main\java : 存储源码;
 - 资源目录：src\main\resources : 存储静态资源；动态页面；配置文件等；
 - 目标输出：target : 存储编译文件；
