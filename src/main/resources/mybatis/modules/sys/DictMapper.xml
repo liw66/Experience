@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.li.experience.modules.sys.dao.DictDao">
+
+    <sql id="base_column_list">
+        `dictid`,`name`,`value`,`type`,`desc`,`remark`,`sort`,`del`,`createdat`,`createdby`,`updatedat`,`updatedby`
+	</sql>
+
+    <sql id="base_where_list">
+        <if test="dictid != null and dictid != ''">and dictid = #{dictid}</if>
+        <if test="name != null and name != ''">and name = #{name}</if>
+        <if test="value != null and value != ''">and value = #{value}</if>
+        <if test="type != null and type != ''">and type = #{type}</if>
+        <if test="desc != null and desc != ''">and desc = #{desc}</if>
+        <if test="remark != null and remark != ''">and remark = #{remark}</if>
+        <if test="sort != null and sort != ''">and sort = #{sort}</if>
+        <if test="del != null and del != ''">and del = #{del}</if>
+        <if test="createdat != null and createdat != ''">and createdat = #{createdat}</if>
+        <if test="createdby != null and createdby != ''">and createdby = #{createdby}</if>
+        <if test="updatedat != null and updatedat != ''">and updatedat = #{updatedat}</if>
+        <if test="updatedby != null and updatedby != ''">and updatedby = #{updatedby}</if>
+    </sql>
+
+    <select id="get" resultType="com.li.experience.modules.sys.domain.DictDO">
+        select
+        <include refid="base_column_list"></include>
+        from sys_dict where dictid = #{value}
+    </select>
+
+    <select id="list" resultType="com.li.experience.modules.sys.domain.DictDO">
+        select
+        <include refid="base_column_list"></include>
+        from sys_dict
+        <where>
+            <include refid="base_where_list"></include>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by sort
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from sys_dict
+        <where>
+            <include refid="base_where_list"></include>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="com.li.experience.modules.sys.domain.DictDO" useGeneratedKeys="true"
+            keyProperty="dictid">
+		insert into sys_dict
+        (`name`,`value`,`type`,`desc`,`remark`,`sort`,`del`,`createdat`,`createdby`,`updatedat`,`updatedby`)
+		values
+        (#{name},#{value},#{type},#{desc},#{remark},#{sort},#{del},#{createdat},#{createdby},#{updatedat},#{updatedby})
+	</insert>
+
+    <update id="update" parameterType="com.li.experience.modules.sys.domain.DictDO">
+        update sys_dict
+        <set>
+            <if test="name != null">`name` = #{name},</if>
+            <if test="value != null">`value` = #{value},</if>
+            <if test="type != null">`type` = #{type},</if>
+            <if test="desc != null">`desc` = #{desc},</if>
+            <if test="remark != null">`remark` = #{remark},</if>
+            <if test="sort != null">`sort` = #{sort},</if>
+            <if test="del != null">`del` = #{del},</if>
+            <if test="createdat != null">`createdat` = #{createdat},</if>
+            <if test="createdby != null">`createdby` = #{createdby},</if>
+            <if test="updatedat != null">`updatedat` = #{updatedat},</if>
+            <if test="updatedby != null">`updatedby` = #{updatedby}</if>
+        </set>
+        where dictid = #{dictid}
+    </update>
+
+    <delete id="remove">
+		delete from sys_dict where dictid = #{value}
+	</delete>
+
+    <delete id="batchRemove">
+        delete from sys_dict where dictid in
+        <foreach item="dictid" collection="array" open="(" separator="," close=")">
+            #{dictid}
+        </foreach>
+    </delete>
+
+</mapper>

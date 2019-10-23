@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.li.experience.modules.sys.dao.RoleDao">
+
+	<select id="get" resultType="com.li.experience.modules.sys.domain.RoleDO">
+		select `roleid`,`rolename`,`rolecode`,`sort`,`del`,`state`,`remark`,`createdat`,`createdby`,`updatedat`,`updatedby` from sys_role where roleid = #{value}
+	</select>
+
+	<select id="list" resultType="com.li.experience.modules.sys.domain.RoleDO">
+		select `roleid`,`rolename`,`rolecode`,`sort`,`del`,`state`,`remark`,`createdat`,`createdby`,`updatedat`,`updatedby` from sys_role
+        <where>  
+		  		  <if test="roleid != null and roleid != ''"> and roleid = #{roleid} </if>
+		  		  <if test="rolename != null and rolename != ''"> and rolename = #{rolename} </if>
+		  		  <if test="rolecode != null and rolecode != ''"> and rolecode = #{rolecode} </if>
+		  		  <if test="sort != null and sort != ''"> and sort = #{sort} </if>
+		  		  <if test="del != null and del != ''"> and del = #{del} </if>
+		  		  <if test="state != null and state != ''"> and state = #{state} </if>
+		  		  <if test="remark != null and remark != ''"> and remark = #{remark} </if>
+		  		  <if test="createdat != null and createdat != ''"> and createdat = #{createdat} </if>
+		  		  <if test="createdby != null and createdby != ''"> and createdby = #{createdby} </if>
+		  		  <if test="updatedat != null and updatedat != ''"> and updatedat = #{updatedat} </if>
+		  		  <if test="updatedby != null and updatedby != ''"> and updatedby = #{updatedby} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by roleid desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from sys_role
+		 <where>  
+		  		  <if test="roleid != null and roleid != ''"> and roleid = #{roleid} </if>
+		  		  <if test="rolename != null and rolename != ''"> and rolename = #{rolename} </if>
+		  		  <if test="rolecode != null and rolecode != ''"> and rolecode = #{rolecode} </if>
+		  		  <if test="sort != null and sort != ''"> and sort = #{sort} </if>
+		  		  <if test="del != null and del != ''"> and del = #{del} </if>
+		  		  <if test="state != null and state != ''"> and state = #{state} </if>
+		  		  <if test="remark != null and remark != ''"> and remark = #{remark} </if>
+		  		  <if test="createdat != null and createdat != ''"> and createdat = #{createdat} </if>
+		  		  <if test="createdby != null and createdby != ''"> and createdby = #{createdby} </if>
+		  		  <if test="updatedat != null and updatedat != ''"> and updatedat = #{updatedat} </if>
+		  		  <if test="updatedby != null and updatedby != ''"> and updatedby = #{updatedby} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.li.experience.modules.sys.domain.RoleDO" useGeneratedKeys="true" keyProperty="roleid">
+		insert into sys_role
+		(
+			`rolename`, 
+			`rolecode`, 
+			`sort`, 
+			`del`, 
+			`state`, 
+			`remark`, 
+			`createdat`, 
+			`createdby`, 
+			`updatedat`, 
+			`updatedby`
+		)
+		values
+		(
+			#{rolename}, 
+			#{rolecode}, 
+			#{sort}, 
+			#{del}, 
+			#{state}, 
+			#{remark}, 
+			#{createdat}, 
+			#{createdby}, 
+			#{updatedat}, 
+			#{updatedby}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.li.experience.modules.sys.domain.RoleDO">
+		update sys_role 
+		<set>
+			<if test="rolename != null">`rolename` = #{rolename}, </if>
+			<if test="rolecode != null">`rolecode` = #{rolecode}, </if>
+			<if test="sort != null">`sort` = #{sort}, </if>
+			<if test="del != null">`del` = #{del}, </if>
+			<if test="state != null">`state` = #{state}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="createdat != null">`createdat` = #{createdat}, </if>
+			<if test="createdby != null">`createdby` = #{createdby}, </if>
+			<if test="updatedat != null">`updatedat` = #{updatedat}, </if>
+			<if test="updatedby != null">`updatedby` = #{updatedby}</if>
+		</set>
+		where roleid = #{roleid}
+	</update>
+	
+	<delete id="remove">
+		delete from sys_role where roleid = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from sys_role where roleid in 
+		<foreach item="roleid" collection="array" open="(" separator="," close=")">
+			#{roleid}
+		</foreach>
+	</delete>
+
+	<delete id="removeMenu">
+		delete from sys_role_menu where roleid = #{value}
+	</delete>
+
+	<insert id="saveMenu" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_role_menu (`roleid`,`menuid`)
+		values
+		<foreach collection="list" item="menu" separator=",">
+			(#{menu.roleid},#{menu.menuid})
+		</foreach>
+	</insert>
+	
+	<select id="getMenu" resultType="long">
+		select menuid from sys_role_menu where roleid = #{value}
+	</select>
+
+</mapper>

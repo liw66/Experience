@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body>
+<form class="layui-form" id="layuiForm">
+    <div style="margin-left:60px">
+        <br>
+        <input id="userid" name="userid" th:value="${user.userid}" type="hidden">
+        <input id="username" name="username" th:value="${user.username}" type="hidden">
+        <div class="layui-form-item">
+            <label for="L_username" class="layui-form-label" style="width:120px">
+                姓名：
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="L_username" name="L_username" disabled="" th:value="${user.realname}"
+                       class="layui-input form-control">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width:120px">
+                <span class="text-danger">*</span>新密码：
+            </label>
+            <div class="layui-input-inline">
+                <input type="password" id="L_pass1" name="newpass" required="" lay-verify="required" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width:120px">
+                <span class="text-danger">*</span>确认密码：
+            </label>
+            <div class="layui-input-inline">
+                <input type="password" id="L_pass2" name="password" required="" lay-verify="required" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width:120px">
+            </label>
+            <button class="layui-btn" lay-filter="save" lay-submit="">确定</button>
+        </div>
+    </div>
+</form>
+<div th:include="include::footer"></div>
+<script>
+    layui.use(['form', 'layer'], function () {
+        var form = layui.form,
+            layer = layui.layer;
+
+        //监听提交
+        form.on('submit(save)', function (data) {
+            if ($('#L_pass1').val() != $('#L_pass2').val()) {
+                layer.alert("2次密码输入不一致");
+                return false;
+            }
+            console.log(data);
+            $.ajax({
+                url: '/sys/user/savePwd',
+                type: 'POST',
+                data: $('#layuiForm').serialize(),
+                cache: true,
+                async: false,
+                success: function (data) {
+                    if (data.code == 0) {
+                        parent.layer.msg("保存成功");
+                        parent.reLoad();
+                        var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+                        parent.layer.close(index);
+                    } else {
+                        parent.layer.alert(data.msg)
+                    }
+                }
+            })
+        });
+    });
+</script>
+</body>
+</html>

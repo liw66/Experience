@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body>
+<div class="layui-form" lay-filter="layuiadmin-form-admin" id="layuiadmin-form-admin" style="padding: 20px 30px 0 0;">
+    <form class="layui-form" id="layuiForm">
+        <input id="deptid" name="deptid" th:value="${dept.deptid}" type="hidden">
+        <div class="layui-form-item">
+            <label class="layui-form-label">上级部门：</label>
+            <div class="layui-input-block">
+                <input id="parentName" name="parentName" th:value="${parentName}" class="layui-input form-control"
+                       type="text" disabled>
+                <input id="parentid" name="parentid" th:value="${dept.parentid}" class="layui-input hidden"
+                       type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">部门名称：</label>
+            <div class="layui-input-block">
+                <input id="deptname" name="deptname" th:value="${dept.deptname}" class="layui-input" required
+                       type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序：</label>
+            <div class="layui-input-block">
+                <input id="sort" name="sort" th:value="${dept.sort}" class="layui-input"
+                       type="number">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态：</label>
+            <div class="layui-input-block">
+                <input type="radio" name="state" value="0" title="禁用" th:checked="${dept.state==0}">
+                <input type="radio" name="state" value="1" title="启用" th:checked="${dept.state==1}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit>立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script src="/js/modules/sys/dept/form.js"></script>
+</body>
+</html>

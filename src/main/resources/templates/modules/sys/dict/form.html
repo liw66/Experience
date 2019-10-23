@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body>
+<div class="layui-form" lay-filter="layuiadmin-form-admin" id="layuiadmin-form-admin" style="padding: 20px 30px 0 0;">
+    <form class="layui-form" id="layuiForm">
+        <input id="dictid" name="dictid" th:value="${dict.dictid}" type="hidden">
+        <div class="layui-form-item">
+            <label class="layui-form-label">数据名：</label>
+            <div class="layui-input-block">
+                <input id="name" name="name" th:value="${dict.name}" class="layui-input" type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">数据值：</label>
+            <div class="layui-input-block">
+                <input id="value" name="value" th:value="${dict.value}" class="layui-input" type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型：</label>
+            <div class="layui-input-block">
+                <input id="type" name="type" th:value="${dict.type}" class="layui-input" type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型描述：</label>
+            <div class="layui-input-block">
+                <input id="desc" name="desc" th:value="${dict.desc}" class="layui-input" type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注：</label>
+            <div class="layui-input-block">
+                <input id="remark" name="remark" th:value="${dict.remark}" class="layui-input" type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">序号：</label>
+            <div class="layui-input-block">
+                <input id="sort" name="sort" th:value="${dict.sort}" class="layui-input" type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit>立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script src="/js/modules/sys/dict/form.js"></script>
+</body>
+</html>

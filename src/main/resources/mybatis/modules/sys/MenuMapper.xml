@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.li.experience.modules.sys.dao.MenuDao">
+
+	<select id="get" resultType="com.li.experience.modules.sys.domain.MenuDO">
+		select `menuid`,`parentid`,`menuname`,`url`,`perms`,`icon`,`type`,`sort`,`del`,`state`,`createdat`,`createdby`,`updatedat`,`updatedby` from sys_menu where menuid = #{value}
+	</select>
+
+	<select id="list" resultType="com.li.experience.modules.sys.domain.MenuDO">
+		select `menuid`,`parentid`,`menuname`,`url`,`perms`,`icon`,`type`,`sort`,`del`,`state`,`createdat`,`createdby`,`updatedat`,`updatedby` from sys_menu
+        <where>  
+		  		  <if test="menuid != null and menuid != ''"> and menuid = #{menuid} </if>
+		  		  <if test="parentid != null and parentid != ''"> and parentid = #{parentid} </if>
+		  		  <if test="menuname != null and menuname != ''"> and menuname = #{menuname} </if>
+		  		  <if test="url != null and url != ''"> and url = #{url} </if>
+		  		  <if test="perms != null and perms != ''"> and perms = #{perms} </if>
+		  		  <if test="icon != null and icon != ''"> and icon = #{icon} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="sort != null and sort != ''"> and sort = #{sort} </if>
+		  		  <if test="del != null and del != ''"> and del = #{del} </if>
+		  		  <if test="state != null and state != ''"> and state = #{state} </if>
+		  		  <if test="createdat != null and createdat != ''"> and createdat = #{createdat} </if>
+		  		  <if test="createdby != null and createdby != ''"> and createdby = #{createdby} </if>
+		  		  <if test="updatedat != null and updatedat != ''"> and updatedat = #{updatedat} </if>
+		  		  <if test="updatedby != null and updatedby != ''"> and updatedby = #{updatedby} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by menuid desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from sys_menu
+		 <where>  
+		  		  <if test="menuid != null and menuid != ''"> and menuid = #{menuid} </if>
+		  		  <if test="parentid != null and parentid != ''"> and parentid = #{parentid} </if>
+		  		  <if test="menuname != null and menuname != ''"> and menuname = #{menuname} </if>
+		  		  <if test="url != null and url != ''"> and url = #{url} </if>
+		  		  <if test="perms != null and perms != ''"> and perms = #{perms} </if>
+		  		  <if test="icon != null and icon != ''"> and icon = #{icon} </if>
+		  		  <if test="type != null and type != ''"> and type = #{type} </if>
+		  		  <if test="sort != null and sort != ''"> and sort = #{sort} </if>
+		  		  <if test="del != null and del != ''"> and del = #{del} </if>
+		  		  <if test="state != null and state != ''"> and state = #{state} </if>
+		  		  <if test="createdat != null and createdat != ''"> and createdat = #{createdat} </if>
+		  		  <if test="createdby != null and createdby != ''"> and createdby = #{createdby} </if>
+		  		  <if test="updatedat != null and updatedat != ''"> and updatedat = #{updatedat} </if>
+		  		  <if test="updatedby != null and updatedby != ''"> and updatedby = #{updatedby} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.li.experience.modules.sys.domain.MenuDO" useGeneratedKeys="true" keyProperty="menuid">
+		insert into sys_menu
+		(
+			`parentid`, 
+			`menuname`, 
+			`url`, 
+			`perms`, 
+			`icon`, 
+			`type`, 
+			`sort`, 
+			`del`, 
+			`state`, 
+			`createdat`, 
+			`createdby`, 
+			`updatedat`, 
+			`updatedby`
+		)
+		values
+		(
+			#{parentid}, 
+			#{menuname}, 
+			#{url}, 
+			#{perms}, 
+			#{icon}, 
+			#{type}, 
+			#{sort}, 
+			#{del}, 
+			#{state}, 
+			#{createdat}, 
+			#{createdby}, 
+			#{updatedat}, 
+			#{updatedby}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.li.experience.modules.sys.domain.MenuDO">
+		update sys_menu 
+		<set>
+			<if test="parentid != null">`parentid` = #{parentid}, </if>
+			<if test="menuname != null">`menuname` = #{menuname}, </if>
+			<if test="url != null">`url` = #{url}, </if>
+			<if test="perms != null">`perms` = #{perms}, </if>
+			<if test="icon != null">`icon` = #{icon}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="sort != null">`sort` = #{sort}, </if>
+			<if test="del != null">`del` = #{del}, </if>
+			<if test="state != null">`state` = #{state}, </if>
+			<if test="createdat != null">`createdat` = #{createdat}, </if>
+			<if test="createdby != null">`createdby` = #{createdby}, </if>
+			<if test="updatedat != null">`updatedat` = #{updatedat}, </if>
+			<if test="updatedby != null">`updatedby` = #{updatedby}</if>
+		</set>
+		where menuid = #{menuid}
+	</update>
+	
+	<delete id="remove">
+		delete from sys_menu where menuid = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from sys_menu where menuid in 
+		<foreach item="menuid" collection="array" open="(" separator="," close=")">
+			#{menuid}
+		</foreach>
+	</delete>
+
+	<select id="getMenu" resultType="com.li.experience.modules.sys.domain.MenuDO">
+		SELECT DISTINCT sys_menu.*
+		FROM sys_menu
+		LEFT JOIN sys_role_menu ON sys_role_menu.menuid = sys_menu.menuid
+		LEFT JOIN sys_user_role ON sys_user_role.roleid = sys_role_menu.roleid
+		LEFT JOIN sys_user ON sys_user.userid = sys_user_role.userid
+		<where>
+			<if test="username != null and username != ''"> and username = #{username} </if>
+			<if test="parentid != null and parentid != ''"> and parentid = #{parentid} </if>
+		</where>
+	</select>
+
+</mapper>

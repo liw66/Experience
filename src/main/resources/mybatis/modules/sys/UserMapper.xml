@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.li.experience.modules.sys.dao.UserDao">
+
+    <select id="get" resultType="com.li.experience.modules.sys.domain.UserDO">
+        select
+        <include refid="base_column_list"></include>
+        from sys_user where userid = #{value}
+    </select>
+
+    <select id="getByName" resultType="com.li.experience.modules.sys.domain.UserDO">
+        select
+        <include refid="base_column_list"></include>
+        from sys_user where username = #{value}
+    </select>
+
+    <select id="list" resultType="com.li.experience.modules.sys.domain.UserDO">
+        select
+        <include refid="base_column_list"></include>
+        from sys_user
+        <where>
+            <include refid="base_where_list"></include>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by createdat desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from sys_user
+        <where>
+            <include refid="base_where_list"></include>
+        </where>
+    </select>
+
+    <select id="export" resultType="com.li.experience.modules.sys.domain.UserAO">
+        select
+        <include refid="base_column_list"></include>
+        from sys_user
+        <where>
+            <include refid="base_where_list"></include>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by createdat desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <sql id="base_column_list">
+        `userid`,`deptid`,`username`,`password`,`realname`,`sex`,`birthday`,`moblie`,`email`,`job`,`sort`,`del`,`state`,`createdat`,`createdby`,`updatedat`,`updatedby`
+    </sql>
+
+    <sql id="base_where_list">
+        <if test="userid != null and userid != ''">and userid = #{userid}</if>
+        <if test="deptid != null and deptid != ''">and deptid = #{deptid}</if>
+        <if test="username != null and username != ''">and username like CONCAT('%',#{username},'%')</if>
+        <if test="password != null and password != ''">and password = #{password}</if>
+        <if test="realname != null and realname != ''">and realname = #{realname}</if>
+        <if test="sex != null and sex != ''">and sex = #{sex}</if>
+        <if test="birthday != null and birthday != ''">and birthday = #{birthday}</if>
+        <if test="moblie != null and moblie != ''">and moblie = #{moblie}</if>
+        <if test="email != null and email != ''">and email = #{email}</if>
+        <if test="job != null and job != ''">and job = #{job}</if>
+        <if test="sort != null and sort != ''">and sort = #{sort}</if>
+        <if test="del != null and del != ''">and del = #{del}</if>
+        <if test="state != null and state != ''">and state = #{state}</if>
+        <if test="createdat != null and createdat != ''">and createdat = #{createdat}</if>
+        <if test="createdby != null and createdby != ''">and createdby = #{createdby}</if>
+        <if test="updatedat != null and updatedat != ''">and updatedat = #{updatedat}</if>
+        <if test="updatedby != null and updatedby != ''">and updatedby = #{updatedby}</if>
+    </sql>
+
+    <insert id="save" parameterType="com.li.experience.modules.sys.domain.UserDO" useGeneratedKeys="true"
+            keyProperty="userid">
+		insert into sys_user
+		(
+         `deptid`,`username`,`password`,`realname`,`sex`,`birthday`,`moblie`,`email`,`job`,`sort`,`del`,`state`,`createdat`,`createdby`,`updatedat`,`updatedby`
+		)
+		values
+		(
+			#{deptid},
+			#{username},
+			#{password},
+			#{realname},
+			#{sex},
+			#{birthday},
+			#{moblie},
+			#{email},
+			#{job},
+			#{sort},
+			#{del},
+			#{state},
+			#{createdat},
+			#{createdby},
+			#{updatedat},
+			#{updatedby}
+		)
+	</insert>
+
+    <update id="update" parameterType="com.li.experience.modules.sys.domain.UserDO">
+        update sys_user
+        <set>
+            <if test="deptid != null">`deptid` = #{deptid},</if>
+            <if test="username != null">`username` = #{username},</if>
+            <if test="password != null">`password` = #{password},</if>
+            <if test="realname != null">`realname` = #{realname},</if>
+            <if test="sex != null">`sex` = #{sex},</if>
+            <if test="birthday != null">`birthday` = #{birthday},</if>
+            <if test="moblie != null">`moblie` = #{moblie},</if>
+            <if test="email != null">`email` = #{email},</if>
+            <if test="job != null">`job` = #{job},</if>
+            <if test="sort != null">`sort` = #{sort},</if>
+            <if test="del != null">`del` = #{del},</if>
+            <if test="state != null">`state` = #{state},</if>
+            <if test="createdat != null">`createdat` = #{createdat},</if>
+            <if test="createdby != null">`createdby` = #{createdby},</if>
+            <if test="updatedat != null">`updatedat` = #{updatedat},</if>
+            <if test="updatedby != null">`updatedby` = #{updatedby}</if>
+        </set>
+        where userid = #{userid}
+    </update>
+
+    <delete id="remove">
+		delete from sys_user where userid = #{value}
+	</delete>
+
+    <delete id="batchRemove">
+        delete from sys_user where userid in
+        <foreach item="userid" collection="array" open="(" separator="," close=")">
+            #{userid}
+        </foreach>
+    </delete>
+    
+    <select id="getRole" resultType="long">
+        select roleid from sys_user_role where userid = #{value}
+    </select>
+    
+    <insert id="saveRole" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_user_role (`userid`,`roleid`)
+        values
+        <foreach collection="list" item="role" separator=",">
+            (#{role.userid},#{role.roleid})
+        </foreach>
+    </insert>
+    
+    <delete id="removeRole">
+        delete from sys_user_role where userid = #{value}
+    </delete>
+    
+    <select id="findRoles" resultType="string">
+        SELECT DISTINCT rolecode
+        FROM sys_role
+        LEFT JOIN sys_user_role ON sys_user_role.roleid = sys_role.roleid
+        LEFT JOIN sys_user ON sys_user.userid = sys_user_role.userid
+        WHERE username = #{value}
+    </select>
+    
+    <select id="findPermissions" resultType="string">
+        SELECT DISTINCT perms
+        FROM sys_menu
+        LEFT JOIN sys_role_menu ON sys_role_menu.menuid = sys_menu.menuid
+        LEFT JOIN sys_user_role ON sys_user_role.roleid = sys_role_menu.roleid
+        LEFT JOIN sys_user ON sys_user.userid = sys_user_role.userid
+        WHERE username = #{value}
+    </select>
+
+</mapper>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body>
+<div class="layui-form" lay-filter="layuiadmin-form-admin" id="layuiadmin-form-admin" style="padding: 20px 30px 0 0;">
+    <form class="layui-form" id="layuiForm">
+        <input id="menuid" name="menuid" th:value="${menu.menuid}" type="hidden">
+        <div class="layui-form-item">
+            <label class="layui-form-label">上级菜单：</label>
+            <div class="layui-input-block">
+                <input id="parentName" name="parentName" th:value="${parentName}" class="layui-input form-control"
+                       type="text" disabled>
+                <input id="parentid" name="parentid" th:value="${menu.parentid}" class="layui-input hidden"
+                       type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单类型：</label>
+            <div class="layui-input-block">
+                <input type="radio" name="type" value="0" title="目录" th:checked="${menu.type==0}">
+                <input type="radio" name="type" value="1" title="菜单" th:checked="${menu.type==1}">
+                <input type="radio" name="type" value="2" title="按钮" th:checked="${menu.type==2}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单名称：</label>
+            <div class="layui-input-block">
+                <input id="menuname" name="menuname" th:value="${menu.menuname}" class="layui-input" required
+                       type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单地址：</label>
+            <div class="layui-input-block">
+                <input id="url" name="url" th:value="${menu.url}" class="layui-input"
+                       type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限标志：</label>
+            <div class="layui-input-block">
+                <input id="perms" name="perms" th:value="${menu.perms}" class="layui-input"
+                       type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单图标：</label>
+            <div class="layui-input-inline" style="margin-left:10px;">
+                <input id="icon" name="icon" th:value="${menu.icon}" class="layui-input"
+                       type="text">
+            </div>
+            <div class="layui-input-inline" style="width: auto;">
+                <input id="ico-btn" class="btn btn-warning" type="button" value="选择图标" onclick="iconList()">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序：</label>
+            <div class="layui-input-block">
+                <input id="sort" name="sort" th:value="${menu.sort}" class="layui-input"
+                       type="number">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态：</label>
+            <div class="layui-input-block">
+                <input type="radio" name="state" value="0" title="禁用" th:checked="${menu.state==0}">
+                <input type="radio" name="state" value="1" title="启用" th:checked="${menu.state==1}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit>立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script src="/js/modules/sys/menu/form.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tomcat信息</title>
+    <link rel="stylesheet" href="/css/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/modules/sys/monitor/color.css">
+</head>
+<body>
+<div style="margin: 24px 24px 0px;">
+    <div class="jvm-info">
+        <div class="alert">
+            <div data-show="true" class="ant-alert ant-alert-success">
+                <i class="ant-alert-icon anticon anticon-check-circle">
+                    <svg viewBox="64 64 896 896" data-icon="check-circle" width="1em" height="1em" fill="currentColor"
+                         aria-hidden="true" class="">
+                        <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm193.5 301.7l-210.6 292a31.8 31.8 0 0 1-51.7 0L318.5 484.9c-3.8-5.3 0-12.7 6.5-12.7h46.9c10.2 0 19.9 4.9 25.9 13.3l71.2 98.8 157.2-218c6-8.3 15.6-13.3 25.9-13.3H699c6.5 0 10.3 7.4 6.5 12.7z"></path>
+                    </svg>
+                </i>
+                <span id="disDate"></span>
+                <a style="margin-left: 24px;" onclick="javascript:window.location.reload()">点击刷新</a>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <tr>
+                <th>参数</th>
+                <th>描述</th>
+                <th>当前值</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-green">tomcat.sessions.created</div>
+                </td>
+                <td>tomcat 已创建 session 数</td>
+                <td><span id="tomcat.sessions.created"></span> 个</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-green">tomcat.sessions.expired</div>
+                </td>
+                <td>tomcat 已过期 session 数</td>
+                <td><span id="tomcat.sessions.expired"></span> 个</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-green">tomcat.sessions.active.current</div>
+                </td>
+                <td>tomcat 当前活跃 session 数</td>
+                <td><span id="tomcat.sessions.active.current"></span> 个</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-green">tomcat.sessions.active.max</div>
+                </td>
+                <td>tomcat 活跃 session 数峰值</td>
+                <td><span id="tomcat.sessions.active.max"></span> 个</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-green">tomcat.sessions.rejected</div>
+                </td>
+                <td>超过session 最大配置后，拒绝的 session 个数</td>
+                <td><span id="tomcat.sessions.rejected"></span> 个</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-purple">tomcat.global.sent</div>
+                </td>
+                <td>发送的字节数</td>
+                <td><span id="tomcat.global.sent"></span> MB</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-purple">tomcat.global.request.max</div>
+                </td>
+                <td>request 请求最长耗时</td>
+                <td><span id="tomcat.global.request.max"></span> 秒</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-purple">tomcat.global.request.count</div>
+                </td>
+                <td>全局 request 请求次数</td>
+                <td><span id="tomcat.global.request.count"></span> 次</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-purple">tomcat.global.request.totalTime</div>
+                </td>
+                <td>全局 request 请求总耗时</td>
+                <td><span id="tomcat.global.request.totalTime"></span> 秒</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-cyan">http.server.requests.max</div>
+                </td>
+                <td>http 请求最长耗时</td>
+                <td><span id="http.server.requests.max"></span> 秒</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-cyan">http.server.requests.count</div>
+                </td>
+                <td>http 总请求次数</td>
+                <td><span id="http.server.requests.count"></span> 次</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-cyan">http.server.requests.totalTime</div>
+                </td>
+                <td>http 请求总耗时</td>
+                <td><span id="http.server.requests.totalTime"></span> 秒</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-pink">tomcat.threads.current</div>
+                </td>
+                <td>tomcat 当前线程数（包括守护线程）</td>
+                <td><span id="tomcat.threads.current"></span> 个</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-pink">tomcat.threads.config.max</div>
+                </td>
+                <td>tomcat 配置的线程最大数</td>
+                <td><span id="tomcat.threads.config.max"></span> 个</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script src="/js/plugins/jquery/jquery-3.4.0.min.js"></script>
+<script src="/js/common/moment.js"></script>
+<script src="/js/modules/sys/monitor/tomcatinfo.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body>
+<div class="layui-form" lay-filter="layuiadmin-form-admin" id="layuiadmin-form-admin" style="padding: 20px 30px 0 0;">
+    <form class="layui-form" id="layuiForm">
+        <input id="roleid" name="roleid" th:value="${role.roleid}" type="hidden">
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色名称：</label>
+            <div class="layui-input-block">
+                <input id="rolename" name="rolename" th:value="${role.rolename}" class="layui-input" required
+                       type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色编码：</label>
+            <div class="layui-input-block">
+                <input id="rolecode" name="rolecode" th:value="${role.rolecode}" class="layui-input"
+                       type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色备注：</label>
+            <div class="layui-input-block">
+                <input id="remark" name="remark" th:value="${role.remark}" class="layui-input"
+                       type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单权限：</label>
+            <div id="menuTree" class="layui-input-block"></div>
+            <input id="menuids" name="menuids" th:value="${role.menuids}" type="hidden">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态：</label>
+            <div class="layui-input-block">
+                <input type="radio" name="state" value="0" title="禁用" th:checked="${role.state==0}">
+                <input type="radio" name="state" value="1" title="启用" th:checked="${role.state==1}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit >立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script src="/js/modules/sys/role/form.js"></script>
+</body>
+</html>

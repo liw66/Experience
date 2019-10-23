@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.li.experience.modules.sys.dao.DeptDao">
+
+	<select id="get" resultType="com.li.experience.modules.sys.domain.DeptDO">
+		select
+		<include refid="base_column_list"></include>
+		from sys_dept where deptid = #{value}
+	</select>
+
+	<select id="list" resultType="com.li.experience.modules.sys.domain.DeptDO">
+		select
+		<include refid="base_column_list"></include>
+		from sys_dept
+		<where>
+			<include refid="base_where_list"></include>
+		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by createdat desc
+			</otherwise>
+        </choose>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from sys_dept
+		<where>
+			<include refid="base_where_list"></include>
+		</where>
+	</select>
+
+	<sql id="base_column_list">
+		`deptid`,`parentid`,`deptname`,`sort`,`del`,`state`,`createdat`,`createdby`,`updatedat`,`updatedby`
+	</sql>
+
+	<sql id="base_where_list">
+		<if test="deptid != null and deptid != ''"> and deptid = #{deptid} </if>
+		<if test="parentid != null and parentid != ''"> and parentid = #{parentid} </if>
+		<if test="deptname != null and deptname != ''"> and deptname = #{deptname} </if>
+		<if test="sort != null and sort != ''"> and sort = #{sort} </if>
+		<if test="del != null and del != ''"> and del = #{del} </if>
+		<if test="state != null and state != ''"> and state = #{state} </if>
+		<if test="createdat != null and createdat != ''"> and createdat = #{createdat} </if>
+		<if test="createdby != null and createdby != ''"> and createdby = #{createdby} </if>
+		<if test="updatedat != null and updatedat != ''"> and updatedat = #{updatedat} </if>
+		<if test="updatedby != null and updatedby != ''"> and updatedby = #{updatedby} </if>
+	</sql>
+
+	<insert id="save" parameterType="com.li.experience.modules.sys.domain.DeptDO" useGeneratedKeys="true" keyProperty="deptid">
+		insert into sys_dept
+		(
+			`parentid`, 
+			`deptname`, 
+			`sort`, 
+			`del`, 
+			`state`, 
+			`createdat`, 
+			`createdby`, 
+			`updatedat`, 
+			`updatedby`
+		)
+		values
+		(
+			#{parentid}, 
+			#{deptname}, 
+			#{sort}, 
+			#{del}, 
+			#{state}, 
+			#{createdat}, 
+			#{createdby}, 
+			#{updatedat}, 
+			#{updatedby}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.li.experience.modules.sys.domain.DeptDO">
+		update sys_dept 
+		<set>
+			<if test="parentid != null">`parentid` = #{parentid}, </if>
+			<if test="deptname != null">`deptname` = #{deptname}, </if>
+			<if test="sort != null">`sort` = #{sort}, </if>
+			<if test="del != null">`del` = #{del}, </if>
+			<if test="state != null">`state` = #{state}, </if>
+			<if test="createdat != null">`createdat` = #{createdat}, </if>
+			<if test="createdby != null">`createdby` = #{createdby}, </if>
+			<if test="updatedat != null">`updatedat` = #{updatedat}, </if>
+			<if test="updatedby != null">`updatedby` = #{updatedby}</if>
+		</set>
+		where deptid = #{deptid}
+	</update>
+	
+	<delete id="remove">
+		delete from sys_dept where deptid = #{value}
+	</delete>
+
+</mapper>

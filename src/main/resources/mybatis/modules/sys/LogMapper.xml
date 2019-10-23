@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.li.experience.modules.sys.dao.LogDao">
+
+    <sql id="base_column_list">
+        `logid`,`userid`,`username`,`oper`,`method`,`params`,`result`,`reqtype`,`logtype`,`ip`,`time`,`del`,`createdat`
+	</sql>
+
+    <sql id="base_where_list">
+        <if test="logid != null and logid != ''">and logid = #{logid}</if>
+        <if test="userid != null and userid != ''">and userid = #{userid}</if>
+        <if test="username != null and username != ''">and username = #{username}</if>
+        <if test="oper != null and oper != ''">and oper = #{oper}</if>
+        <if test="method != null and method != ''">and method = #{method}</if>
+        <if test="params != null and params != ''">and params = #{params}</if>
+        <if test="result != null and result != ''">and result = #{result}</if>
+        <if test="reqtype != null and reqtype != ''">and reqtype = #{reqtype}</if>
+        <if test="logtype != null and logtype != ''">and logtype = #{logtype}</if>
+        <if test="ip != null and ip != ''">and ip = #{ip}</if>
+        <if test="time != null and time != ''">and time = #{time}</if>
+        <if test="del != null and del != ''">and del = #{del}</if>
+        <if test="createdat != null and createdat != ''">and createdat = #{createdat}</if>
+    </sql>
+    <select id="get" resultType="com.li.experience.modules.sys.domain.LogDO">
+        select
+        <include refid="base_column_list"></include>
+        from sys_log where logid = #{value}
+    </select>
+
+    <select id="list" resultType="com.li.experience.modules.sys.domain.LogDO">
+        select
+        <include refid="base_column_list"></include>
+        from sys_log
+        <where>
+            <include refid="base_where_list"></include>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by createdat desc
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from sys_log
+        <where>
+            <include refid="base_where_list"></include>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="com.li.experience.modules.sys.domain.LogDO" useGeneratedKeys="true"
+            keyProperty="logid">
+		insert into sys_log
+        (`userid`,`username`,`oper`,`method`,`params`,`result`,`reqtype`,`logtype`,`ip`,`time`,`del`,`createdat`)
+		values
+        (#{userid},#{username},#{oper},#{method},#{params},#{result},#{reqtype},#{logtype},#{ip},#{time},#{del},#{createdat})
+	</insert>
+
+    <update id="update" parameterType="com.li.experience.modules.sys.domain.LogDO">
+        update sys_log
+        <set>
+            <if test="userid != null">`userid` = #{userid},</if>
+            <if test="username != null">`username` = #{username},</if>
+            <if test="oper != null">`oper` = #{oper},</if>
+            <if test="method != null">`method` = #{method},</if>
+            <if test="params != null">`params` = #{params},</if>
+            <if test="result != null">`result` = #{result},</if>
+            <if test="reqtype != null">`reqtype` = #{reqtype},</if>
+            <if test="logtype != null">`logtype` = #{logtype},</if>
+            <if test="ip != null">`ip` = #{ip},</if>
+            <if test="time != null">`time` = #{time},</if>
+            <if test="del != null">`del` = #{del},</if>
+            <if test="createdat != null">`createdat` = #{createdat}</if>
+        </set>
+        where logid = #{logid}
+    </update>
+
+    <delete id="remove">
+		delete from sys_log where logid = #{value}
+	</delete>
+
+    <delete id="batchRemove">
+        delete from sys_log where logid in
+        <foreach item="logid" collection="array" open="(" separator="," close=")">
+            #{logid}
+        </foreach>
+    </delete>
+
+</mapper>

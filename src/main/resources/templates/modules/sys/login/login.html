@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="/css/modules/sys/login/login.css">
+</head>
+<body>
+<div class="top_div"></div>
+<form id="signupForm">
+    <div style="width: 400px;height: 200px;margin: auto auto;background: #ffffff;text-align: center;margin-top: -100px;border: 1px solid #e7e7e7">
+        <div style="width: 165px;height: 96px;position: absolute">
+            <div class="tou"></div>
+            <div id="left_hand" class="initial_left_hand" style="left:100px;top:-12px;"></div>
+            <div id="right_hand" class="initial_right_hand" style="right:-112px;top:-12px"></div>
+        </div>
+
+        <p style="padding: 30px 0px 10px 0px;position: relative;">
+            <span class="u_logo"></span>
+            <input id="username" name="username" class="ipt" type="text" placeholder="请输入用户名" value="admin">
+        </p>
+        <p style="position: relative;">
+            <span class="p_logo"></span>
+            <input id="password" name="password" class="ipt" type="password" placeholder="请输入密码" value="admin">
+        </p>
+
+        <div style="height: 50px;line-height: 50px;margin-top: 30px;border-top: 1px solid #e7e7e7;">
+            <p style="margin: 0px 35px 20px 45px;">
+            <span style="float: right">
+               <a id="login"
+                  style="cursor:pointer;background: #008ead;padding: 7px 10px;border-radius: 4px;border: 1px solid #1a7598;color: #FFF;font-weight: bold;">Login</a>
+           </span>
+            </p>
+        </div>
+    </div>
+</form>
+<script src="/js/plugins/jquery/jquery-3.4.0.min.js"></script>
+<script src="/js/modules/sys/login/login.js"></script>
+</body>
+</html>

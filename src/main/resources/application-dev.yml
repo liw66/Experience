@@ -1,0 +1,85 @@
+experience:
+  var1:
+  var2:
+spring:
+  main:
+      allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
+  servlet:
+    multipart:
+      maxFileSize: 500MB
+      maxRequestSize: 500MB
+  datasource:
+    url: jdbc:mysql://localhost:3306/experience?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+    #schema: classpath:import.sql
+    druid:
+      max-wait: 30000
+      query-timeout: 10
+      validation-query: SELECT 1
+      use-global-data-source-stat: true
+      # 开启 StatFilter，默认开启，可通过 'enabled: false' 关闭
+      stat:
+        enabled: true
+        log-slow-sql: true
+        slow-sql-millis: 1000
+      # 开启 Slf4jFilter
+      slf4j:
+        enabled: true
+        data-source-log-enabled: false
+        connection-log-enabled: false
+        statement-log-enabled: false
+        result-set-log-enabled: false
+      # 开启 WallFilter
+      wall:
+        enabled: true
+        log-violation: true
+        throw-exception: false
+        ## WallConfig 配置
+        config:
+          delete-where-none-check: true
+      # 开启 ConfigFilter
+      config:
+        enabled: true
+      # 开启 Web 监控
+      web-stat:
+        enabled: true
+      # 开启 Aop 监控
+      aop-stat:
+        enabled: true
+      # 开启监控页面
+      stat-view-servlet:
+        enabled: true
+  data:
+    mongodb:
+      database: dossier
+      host: 192.168.1.238
+      port: 27238
+      filters: stat,wall,slf4j
+redis:
+      host: 192.168.1.238
+      port: 6379
+      password:
+      # 连接超时时间（毫秒）
+      timeout: 10000
+      pool:
+        # 连接池中的最大空闲连接
+        max-idle: 8
+        # 连接池中的最小空闲连接
+        min-idle: 10
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 100
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1
+      database: 0
+management:
+  endpoints:
+    web:
+      exposure:
+        include: httptrace, metrics
+mybatis:
+  mapper-locations: classpath:mybatis/**/*.xml
+logging:
+  level:
+    #root: info
+    com.li.experience: debug

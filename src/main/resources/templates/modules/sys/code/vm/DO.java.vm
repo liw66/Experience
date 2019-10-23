@@ -1,0 +1,43 @@
+package com.li.experience.modules.app.domain;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.math.BigInteger;
+
+/**
+ * ${tableComment}
+ *
+ * @author Liwei
+ * @email liw66@163.com
+ * @date ${createTime}
+ */
+public class ${className}DO implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    #foreach($c in $columns)
+
+    //$c.columnComment
+    private $c.dataType $c.columnName;
+    #end
+
+    #foreach($c in $columns)
+    #set($var0 = $c.dataType+' '+$c.columnName)
+    #set($var1 = 'get'+$c.extra)
+    #set($var2 = 'set'+$c.extra)
+
+    /**
+     * 获取$c.columnComment
+     */
+    public $c.dataType $var1() {
+        return $c.columnName;
+    }
+
+    /**
+     * 设置$c.columnComment
+     */
+    public void $var2($var0) {
+        this.$c.columnName = $c.columnName;
+    }
+    #end
+
+}

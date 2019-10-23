@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body>
+<div class="layui-form" lay-filter="layuiadmin-form-admin" id="layuiadmin-form-admin" style="padding: 20px 30px 0 0;">
+    <form class="layui-form" id="layuiForm">
+        <input id="userid" name="userid" th:value="${user.userid}" type="hidden">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名：</label>
+            <div class="layui-input-block">
+                <input id="username" name="username" th:value="${user.username}" class="layui-input form-control"
+                       required
+                       type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码：</label>
+            <div class="layui-input-block">
+                <input id="password" name="password" th:value="${user.password}" class="layui-input form-control"
+                       type="password">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名：</label>
+            <div class="layui-input-block">
+                <input id="realname" name="realname" th:value="${user.realname}" class="layui-input"
+                       type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别：</label>
+            <div class="layui-input-block">
+                <select name="sex">
+                    <option value=""> -- 请选择 --</option>
+                    <option th:each="s:${sex}" th:value="${s.value}"
+                            th:text="${s.name}" th:selected="${user.sex+''==s.value}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">部门：</label>
+            <div class="layui-input-block">
+                <input id="deptid" name="deptid" th:value="${user.deptid}" class="layui-input hidden"
+                       type="text">
+                <input id="deptname" name="deptname" class="layui-input form-control" onclick="openDept()"
+                       style="cursor:pointer"
+                       type="text" placeholder="所属部门" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">职务：</label>
+            <div class="layui-input-block">
+                <input id="job" name="job" th:value="${user.job}" class="layui-input"
+                       type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话：</label>
+            <div class="layui-input-block">
+                <input id="moblie" name="moblie" th:value="${user.moblie}" class="layui-input"
+                       type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱：</label>
+            <div class="layui-input-block">
+                <input id="email" name="email" th:value="${user.email}" class="layui-input"
+                       type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色：</label>
+            <div class="layui-input-block role">
+                <input type="checkbox" th:id="${role.roleid}" th:title="${role.rolename}" th:each="role:${roles}">
+                <div class="layui-form-checkbox"></div>
+            </div>
+            <input id="roleids" name="roleids" class="layui-input hidden" th:value="${user.roleids}"
+                   type="text">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态：</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="switch" lay-skin="switch" lay-filter="switch" lay-text="启用|禁用"
+                       th:checked="${user.state==1}">
+                <input id="state" name="state" th:value="${user.state}" class="layui-input hidden"
+                       type="text">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit>立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script src="/js/modules/sys/user/form.js"></script>
+</body>
+</html>

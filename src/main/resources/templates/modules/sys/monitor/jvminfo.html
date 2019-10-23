@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JVM信息</title>
+    <link rel="stylesheet" href="/css/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/modules/sys/monitor/color.css">
+</head>
+<body>
+<div style="margin: 24px 24px 0px;">
+    <div class="jvm-info">
+        <div class="alert">
+            <div data-show="true" class="ant-alert ant-alert-success">
+                <i class="ant-alert-icon anticon anticon-check-circle">
+                    <svg viewBox="64 64 896 896" data-icon="check-circle" width="1em" height="1em" fill="currentColor"
+                         aria-hidden="true" class="">
+                        <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm193.5 301.7l-210.6 292a31.8 31.8 0 0 1-51.7 0L318.5 484.9c-3.8-5.3 0-12.7 6.5-12.7h46.9c10.2 0 19.9 4.9 25.9 13.3l71.2 98.8 157.2-218c6-8.3 15.6-13.3 25.9-13.3H699c6.5 0 10.3 7.4 6.5 12.7z"></path>
+                    </svg>
+                </i>
+                <span id="disDate"></span>
+                <a style="margin-left: 24px;" onclick="javascript:window.location.reload()">点击刷新</a>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <tr>
+                <th>参数</th>
+                <th>描述</th>
+                <th>当前值</th>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-purple">jvm.memory.max</div>
+                </td>
+                <td>JVM 最大可分配内存</td>
+                <td><span id="jvm.memory.max"></span> MB</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-purple">jvm.memory.committed</div>
+                </td>
+                <td>JVM 可用内存</td>
+                <td><span id="jvm.memory.committed"></span> MB</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-purple">jvm.memory.used</div>
+                </td>
+                <td>JVM 已用内存</td>
+                <td><span id="jvm.memory.used"></span> MB</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-cyan">jvm.buffer.memory.used</div>
+                </td>
+                <td>JVM 缓冲区已用内存</td>
+                <td><span id="jvm.buffer.memory.used"></span> MB</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-cyan">jvm.buffer.count</div>
+                </td>
+                <td>当前缓冲区数量</td>
+                <td><span id="jvm.buffer.count"></span> 个</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-green">jvm.threads.daemon</div>
+                </td>
+                <td>JVM 守护线程数量</td>
+                <td><span id="jvm.threads.daemon"></span> 个</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-green">jvm.threads.live</div>
+                </td>
+                <td>JVM 当前活跃线程数量</td>
+                <td><span id="jvm.threads.live"></span> 个</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-green">jvm.threads.peak</div>
+                </td>
+                <td>JVM 峰值线程数量</td>
+                <td><span id="jvm.threads.peak"></span> 个</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-orange">jvm.classes.loaded</div>
+                </td>
+                <td>JVM 已加载 Class 数量</td>
+                <td><span id="jvm.classes.loaded"></span> 个</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-orange">jvm.classes.unloaded</div>
+                </td>
+                <td>JVM 未加载 Class 数量</td>
+                <td><span id="jvm.classes.unloaded"></span> 个</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-pink">jvm.gc.memory.allocated</div>
+                </td>
+                <td>GC 时, 年轻代分配的内存空间</td>
+                <td><span id="jvm.gc.memory.allocated"></span> MB</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-pink">jvm.gc.memory.promoted</div>
+                </td>
+                <td>GC 时, 老年代分配的内存空间</td>
+                <td><span id="jvm.gc.memory.promoted"></span> MB</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-pink">jvm.gc.max.data.size</div>
+                </td>
+                <td>GC 时, 老年代的最大内存空间</td>
+                <td><span id="jvm.gc.max.data.size"></span> MB</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-pink">jvm.gc.live.data.size</div>
+                </td>
+                <td>FullGC 时, 老年代的内存空间</td>
+                <td><span id="jvm.gc.live.data.size"></span> MB</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-blue">jvm.gc.pause.count</div>
+                </td>
+                <td>系统启动以来GC 次数</td>
+                <td><span id="jvm.gc.pause.count"></span> 次</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ant-tag ant-tag-blue">jvm.gc.pause.totalTime</div>
+                </td>
+                <td>系统启动以来GC 总耗时</td>
+                <td><span id="jvm.gc.pause.totalTime"></span> 秒</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script src="/js/plugins/jquery/jquery-3.4.0.min.js"></script>
+<script src="/js/common/moment.js"></script>
+<script src="/js/modules/sys/monitor/jvminfo.js"></script>
+</body>
+</html>
